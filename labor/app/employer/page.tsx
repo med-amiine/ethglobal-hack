@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { format } from 'date-fns'
 import Link from 'next/link'
 
 interface JobForm {
@@ -33,7 +32,6 @@ export default function EmployerPage() {
 
   const handleVerify = async () => {
     setLoading(true)
-    // Simulate World ID verification
     setTimeout(() => {
       setVerified(true)
       setLoading(false)
@@ -86,82 +84,65 @@ export default function EmployerPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#0a0e1a', color: '#ffffff' }}>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
       {/* Header */}
-      <div className="border-b p-4" style={{ borderColor: '#C9A84C' }}>
-        <Link href="/" className="text-lg font-bold" style={{ color: '#C9A84C' }}>
+      <div className="border-b border-slate-700 px-6 py-4">
+        <Link href="/" className="text-amber-400 hover:text-amber-300 font-semibold">
           ← Back
         </Link>
       </div>
 
-      <div className="max-w-6xl mx-auto p-6 lg:p-12">
+      <div className="max-w-4xl mx-auto p-6 lg:p-12">
         <h1 className="text-5xl font-bold mb-2">Employer Dashboard</h1>
-        <p className="text-gray-300 mb-8">Post jobs and manage your workforce</p>
+        <p className="text-slate-400 mb-12">Post jobs and manage your workforce</p>
 
-        {/* World ID Verification */}
+        {/* Verification Card */}
         {!verified ? (
-          <div
-            className="p-8 rounded-lg mb-8 border-2"
-            style={{ borderColor: '#C9A84C', backgroundColor: '#0f1629' }}
-          >
+          <div className="p-8 rounded-lg border border-slate-700 bg-slate-800/50 mb-8">
             <h2 className="text-2xl font-bold mb-4">Verify Your Identity</h2>
-            <p className="text-gray-300 mb-6">
+            <p className="text-slate-300 mb-6">
               Only verified employers can post jobs. This prevents fake listings and fraud.
             </p>
             <button
               onClick={handleVerify}
               disabled={loading}
-              className="px-6 py-3 font-bold rounded-lg text-white transition-all hover:scale-105"
-              style={{ backgroundColor: '#C9A84C' }}
+              className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-lg disabled:opacity-50 transition-colors"
             >
               {loading ? 'Verifying...' : 'Verify with World ID'}
             </button>
           </div>
         ) : (
-          <div
-            className="p-6 rounded-lg mb-8 border-2 flex items-center gap-4"
-            style={{ borderColor: '#4ade80', backgroundColor: '#0f1629' }}
-          >
-            <span className="text-3xl">✓</span>
+          <div className="p-6 rounded-lg border border-green-500/50 bg-green-500/10 mb-8 flex items-center gap-4">
+            <span className="text-2xl">✓</span>
             <div>
-              <p className="text-lg font-bold" style={{ color: '#4ade80' }}>
-                Identity Verified
-              </p>
-              <p className="text-sm text-gray-300">You can now post jobs</p>
+              <p className="font-bold text-green-400">Identity Verified</p>
+              <p className="text-sm text-slate-400">You can now post jobs</p>
             </div>
           </div>
         )}
 
         {verified && (
           <>
-            {/* Create Job Button */}
             {!showForm && (
               <button
                 onClick={() => setShowForm(true)}
-                className="px-6 py-3 font-bold rounded-lg text-white mb-8 transition-all hover:scale-105"
-                style={{ backgroundColor: '#C9A84C' }}
+                className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-lg mb-8 transition-colors"
               >
                 + Post New Job
               </button>
             )}
 
-            {/* Job Form */}
             {showForm && (
-              <form
-                onSubmit={handleCreateJob}
-                className="p-8 rounded-lg mb-8 border-2"
-                style={{ borderColor: '#C9A84C', backgroundColor: '#0f1629' }}
-              >
+              <form onSubmit={handleCreateJob} className="p-8 rounded-lg border border-slate-700 bg-slate-800/50 mb-8">
                 <h2 className="text-2xl font-bold mb-6">Create New Job</h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                   <input
                     type="text"
-                    placeholder="Job Title (e.g., Site Foreman)"
+                    placeholder="Job Title"
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                   <input
@@ -169,8 +150,7 @@ export default function EmployerPage() {
                     placeholder="Location"
                     value={form.location}
                     onChange={(e) => setForm({ ...form, location: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                   <input
@@ -178,8 +158,7 @@ export default function EmployerPage() {
                     placeholder="Daily Rate (USDC)"
                     value={form.dailyRate}
                     onChange={(e) => setForm({ ...form, dailyRate: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                   <input
@@ -187,24 +166,21 @@ export default function EmployerPage() {
                     placeholder="Total Budget (USDC)"
                     value={form.totalBudget}
                     onChange={(e) => setForm({ ...form, totalBudget: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                   <input
                     type="date"
                     value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                   <input
                     type="date"
                     value={form.endDate}
                     onChange={(e) => setForm({ ...form, endDate: e.target.value })}
-                    className="px-4 py-3 bg-gray-900 rounded border"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -213,8 +189,7 @@ export default function EmployerPage() {
                   placeholder="Job Description"
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 rounded border mb-6"
-                  style={{ borderColor: '#C9A84C' }}
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none mb-6"
                   rows={4}
                 />
 
@@ -222,16 +197,14 @@ export default function EmployerPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-6 py-3 font-bold rounded-lg text-white transition-all hover:scale-105"
-                    style={{ backgroundColor: '#C9A84C' }}
+                    className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-lg disabled:opacity-50 transition-colors"
                   >
                     {loading ? 'Creating...' : 'Post Job'}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowForm(false)}
-                    className="px-6 py-3 font-bold rounded-lg border text-white"
-                    style={{ borderColor: '#C9A84C' }}
+                    className="px-6 py-3 border border-slate-600 hover:border-slate-500 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
@@ -239,37 +212,25 @@ export default function EmployerPage() {
               </form>
             )}
 
-            {/* Jobs List */}
             {jobs.length > 0 && (
               <div>
                 <h2 className="text-2xl font-bold mb-6">Active Jobs</h2>
                 <div className="space-y-4">
                   {jobs.map((job) => (
-                    <div
-                      key={job.jobId}
-                      className="p-6 rounded-lg border-2"
-                      style={{ borderColor: '#C9A84C', backgroundColor: '#0f1629' }}
-                    >
+                    <div key={job.jobId} className="p-6 rounded-lg border border-slate-700 bg-slate-800/50">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <h3 className="text-xl font-bold">
-                            {job.title || 'Untitled Job'}
-                          </h3>
-                          <p className="text-gray-400 text-sm">
-                            {job.location || 'Location TBA'}
-                          </p>
+                          <h3 className="text-xl font-bold">{job.title || 'Untitled Job'}</h3>
+                          <p className="text-slate-400 text-sm">{job.location || 'Location TBA'}</p>
                         </div>
                         <Link
                           href={`/checkin/${job.jobId}`}
-                          className="px-4 py-2 rounded font-bold text-white"
-                          style={{ backgroundColor: '#C9A84C' }}
+                          className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black rounded-lg font-bold transition-colors"
                         >
                           Show QR
                         </Link>
                       </div>
-                      <p className="text-gray-300 text-sm">
-                        ID: {job.jobId.slice(0, 16)}...
-                      </p>
+                      <p className="text-slate-500 text-sm">ID: {job.jobId.slice(0, 16)}...</p>
                     </div>
                   ))}
                 </div>

@@ -2,206 +2,147 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#0a0e1a' }}>
-      {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center min-h-screen gap-8 px-4">
-        <div className="text-center max-w-3xl">
-          <h1 className="text-6xl md:text-7xl font-black text-white mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
+      {/* Hero */}
+      <section className="relative overflow-hidden px-6 py-32 sm:py-48 lg:py-64">
+        {/* Background gradient orb */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl" />
+
+        <div className="relative mx-auto max-w-3xl text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
             LaborLink
           </h1>
-          <p className="text-2xl md:text-3xl mb-8" style={{ color: '#C9A84C' }}>
+          <p className="text-2xl sm:text-3xl font-light text-amber-400 mb-8">
             Show up. Get paid. No bank needed.
           </p>
-          <p className="text-lg text-gray-300 mb-12 leading-relaxed">
-            Two billion workers get paid cash in an envelope.
-            <br />
-            No receipt. No recourse. No record.
-            <br />
-            <br />
-            LaborLink gives physical labor an onchain footprint.
-            <br />
-            Check in via QR. Get paid in seconds. Build an immutable work history.
+          <p className="text-lg text-slate-300 mb-12 leading-relaxed max-w-2xl mx-auto">
+            Onchain work verification. Workers check in via QR, get paid instantly, build portable work history.
           </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Link
+              href="/employer"
+              className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-lg transition-colors"
+            >
+              Post a Job
+            </Link>
+            <Link
+              href="/worker"
+              className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg border border-amber-500/50 transition-colors"
+            >
+              Find Work
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-6 text-center text-sm">
+            <div>
+              <div className="text-3xl font-bold text-amber-400">2B</div>
+              <div className="text-slate-400">Workers</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-amber-400">6</div>
+              <div className="text-slate-400">Integrations</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-amber-400">$0</div>
+              <div className="text-slate-400">Setup Fee</div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-4">
-          <Link
-            href="/employer"
-            className="px-8 py-4 text-xl font-bold rounded-lg text-white transition-all hover:scale-105"
-            style={{ backgroundColor: '#C9A84C' }}
-          >
-            Post a Job
-          </Link>
-          <Link
-            href="/worker"
-            className="px-8 py-4 text-xl font-bold rounded-lg border-2 text-white transition-all hover:scale-105"
-            style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
-          >
-            Find Work
-          </Link>
-        </div>
-      </div>
+      {/* Features */}
+      <section className="py-24 px-6 bg-slate-900/50">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-center mb-16">How It Works</h2>
 
-      {/* How It Works */}
-      <div className="py-20 px-4" style={{ backgroundColor: '#0f1629' }}>
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-16">
-            How It Works
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                num: '1',
-                title: 'Post a Job',
-                desc: 'Employer verifies with World ID (no fake listings)',
-              },
-              {
-                num: '2',
-                title: 'Lock Budget',
-                desc: 'USDC locked privately via Unlink escrow',
-              },
-              {
-                num: '3',
-                title: 'Check In',
-                desc: 'Worker scans QR → Hedera timestamps work',
-              },
-              {
-                num: '4',
-                title: 'Get Paid',
-                desc: 'WalletConnect releases USDC instantly at checkout',
-              },
+              { num: '1', title: 'Post', desc: 'Employer verifies with World ID' },
+              { num: '2', title: 'Lock', desc: 'Daily pay locked privately' },
+              { num: '3', title: 'Verify', desc: 'Worker scans QR at job site' },
+              { num: '4', title: 'Pay', desc: 'USDC released instantly' },
             ].map((step) => (
-              <div
-                key={step.num}
-                className="p-6 rounded-lg border-2"
-                style={{ borderColor: '#C9A84C', backgroundColor: '#0a0e1a' }}
-              >
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl mb-4"
-                  style={{ backgroundColor: '#C9A84C' }}
-                >
-                  {step.num}
+              <div key={step.num} className="relative">
+                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-amber-500/20 border border-amber-500/50 mb-4">
+                  <span className="text-lg font-bold text-amber-400">{step.num}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-gray-300">{step.desc}</p>
+                <h3 className="text-lg font-bold mb-2">{step.title}</h3>
+                <p className="text-slate-400 text-sm">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* The Problem */}
-      <div className="py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-8">The Problem</h2>
-          <p className="text-xl text-gray-300 leading-relaxed mb-8">
-            2 billion workers worldwide get paid cash in an envelope. They have no receipt when the money disappears. No recourse if the employer denies payment. No record of the work they performed.
+      {/* Problem */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-4xl font-bold mb-8">The Problem</h2>
+          <p className="text-xl text-slate-300 leading-relaxed mb-8">
+            2 billion workers get paid cash in an envelope. No receipt. No recourse. No record.
           </p>
-          <p className="text-lg" style={{ color: '#C9A84C' }}>
-            Day laborers are the most exploited workforce on the planet because their work leaves no trace.
+          <p className="text-lg text-amber-400 font-semibold">
+            Day laborers have zero proof their work ever happened.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* Features Grid */}
-      <div className="py-20 px-4" style={{ backgroundColor: '#0f1629' }}>
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-white text-center mb-16">
-            Why LaborLink
-          </h2>
+      <section className="py-24 px-6 bg-slate-900/50">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-center mb-16">Why LaborLink</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              {
-                icon: '🌍',
-                title: 'Identity Verified',
-                desc: 'Only real humans post jobs. World ID prevents fraud.',
-              },
-              {
-                icon: '🔗',
-                title: 'Immutable Proof',
-                desc: 'Check-ins logged on Hedera. Cryptographic proof of work.',
-              },
-              {
-                icon: '💳',
-                title: 'Instant Payment',
-                desc: 'USDC released same day. No waiting, no intermediaries.',
-              },
-              {
-                icon: '📊',
-                title: 'Portable Reputation',
-                desc: 'Build a verifiable work history across job sites.',
-              },
-              {
-                icon: '🛡️',
-                title: 'Private Budget',
-                desc: 'Employer salary hidden via Unlink. Workers see daily rate.',
-              },
-              {
-                icon: '⚖️',
-                title: 'Fair Arbitration',
-                desc: '3 World ID judges arbitrate disputes. HCS log is evidence.',
-              },
+              { icon: '🔐', title: 'Identity Verified', desc: 'Only real humans post jobs' },
+              { icon: '⛓️', title: 'Immutable Proof', desc: 'Check-ins logged on blockchain' },
+              { icon: '⚡', title: 'Instant Payment', desc: 'USDC released same day' },
+              { icon: '📊', title: 'Portable Reputation', desc: 'Work history follows you' },
+              { icon: '🔒', title: 'Private Budget', desc: 'Employer salary hidden' },
+              { icon: '⚖️', title: 'Fair Arbitration', desc: 'Disputes resolved on-chain' },
             ].map((feature, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-lg border"
-                style={{ borderColor: '#C9A84C', backgroundColor: '#0a0e1a' }}
-              >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300">{feature.desc}</p>
+              <div key={i} className="p-6 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-amber-500/50 transition-colors">
+                <div className="text-3xl mb-3">{feature.icon}</div>
+                <h3 className="font-bold mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-400">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Demo CTA */}
-      <div className="py-20 px-4 text-center">
-        <h2 className="text-4xl font-bold text-white mb-8">
-          See It In Action
-        </h2>
+      <section className="py-24 px-6 text-center">
+        <h2 className="text-4xl font-bold mb-8">See It In Action</h2>
         <Link
           href="/demo"
-          className="px-8 py-4 text-xl font-bold rounded-lg text-white transition-all hover:scale-105 inline-block"
-          style={{ backgroundColor: '#C9A84C' }}
+          className="inline-block px-8 py-4 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-lg transition-colors"
         >
           Run Live Demo
         </Link>
-      </div>
+      </section>
 
       {/* Footer */}
-      <div
-        className="border-t px-4 py-12"
-        style={{ borderColor: '#C9A84C' }}
-      >
-        <div className="max-w-5xl mx-auto">
+      <footer className="border-t border-slate-700 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
           <div className="text-center mb-8">
-            <p className="text-gray-400 text-sm">Powered by</p>
-            <div className="flex flex-wrap justify-center gap-6 mt-4 items-center">
-              {['World ID', 'Hedera', 'WalletConnect', 'Unlink', 'Dynamic'].map((sponsor) => (
-                <span
-                  key={sponsor}
-                  className="px-4 py-2 text-sm rounded border"
-                  style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
-                >
-                  {sponsor}
+            <p className="text-slate-400 text-sm mb-4">Powered by</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {['World ID', 'Hedera', 'WalletConnect', 'Unlink', 'Dynamic'].map((s) => (
+                <span key={s} className="text-xs text-slate-500">
+                  {s}
                 </span>
               ))}
             </div>
           </div>
-          <p className="text-center text-gray-500 text-sm">
-            Built for ETHGlobal Cannes 2026
-          </p>
+          <div className="text-center text-slate-500 text-sm">
+            Onchain work verification for the physical world
+          </div>
         </div>
-      </div>
+      </footer>
     </div>
   )
 }
