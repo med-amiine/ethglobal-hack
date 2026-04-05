@@ -10,8 +10,6 @@
  * 6. Archive resolved cases
  */
 
-import fetch from "node-fetch";
-
 interface Case {
   caseId: string;
   clientAddress: string;

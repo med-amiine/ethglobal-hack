@@ -38,6 +38,13 @@ export function now(): string {
 }
 
 /**
+ * Copy to clipboard
+ */
+export function copyToClipboard(text: string): Promise<void> {
+  return navigator.clipboard.writeText(text);
+}
+
+/**
  * Rate limit helper (in-memory)
  */
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();

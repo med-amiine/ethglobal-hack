@@ -1,7 +1,3 @@
-import { getPublicClient } from "viem";
-import { baseSepolia } from "viem/chains";
-import { CONTRACTS } from "./contracts";
-
 /**
  * Attach evidence to a case via the contract
  * Evidence is stored as IPFS hash on-chain

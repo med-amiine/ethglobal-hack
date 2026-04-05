@@ -1,4 +1,4 @@
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useAccount } from "wagmi";
 import { CONTRACTS } from "@/lib/contracts";
 import { useState } from "react";
 

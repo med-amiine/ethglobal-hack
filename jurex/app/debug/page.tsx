@@ -35,8 +35,8 @@ export default function DebugPage() {
         rpc: "https://sepolia.base.org",
         blockNumber: blockNumber.toString(),
         courtRegistry: COURT_REGISTRY,
-        contractExists: code !== "0x",
-        codeLength: code.length,
+        contractExists: code && code !== "0x",
+        codeLength: code?.length || 0,
         walletAddress: address,
         walletValid: address ? isAddress(address) : false,
       });

@@ -8,13 +8,15 @@ export function useCopyToClipboard() {
   const [copied, setCopied] = useState(false);
 
   const copy = async (text: string) => {
-    const success = await copyToClipboard(text);
-    if (success) {
+    try {
+      await copyToClipboard(text);
       setCopied(true);
       // Reset after 1.5 seconds
       setTimeout(() => setCopied(false), 1500);
+      return true;
+    } catch {
+      return false;
     }
-    return success;
   };
 
   return { copy, copied };

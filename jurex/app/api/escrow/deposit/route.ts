@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { updateData, getEntry } from "@/lib/data";
-import { getPublicClient } from "viem";
-import { baseSepolia } from "viem/chains";
 
 /**
  * POST /api/escrow/deposit
