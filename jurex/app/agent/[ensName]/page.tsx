@@ -5,6 +5,7 @@ import { Navbar } from "@/app/components/Navbar";
 import { TerminalCard } from "@/app/components/ui/TerminalCard";
 import { ScoreRadar } from "@/app/components/ui/ScoreRadar";
 import { GoldButton } from "@/app/components/ui/GoldButton";
+import { CopyableAddress } from "@/app/components/ui/CopyableAddress";
 import Link from "next/link";
 import { extractAgentName } from "@/lib/ens";
 
@@ -101,9 +102,7 @@ export default function AgentPage({
             <h1 className="text-5xl font-bold text-[#C9A84C] font-serif mb-2">
               {agent.name}.jurex.eth
             </h1>
-            <p className="text-[#8899AA] font-mono text-sm">
-              {agent.address}
-            </p>
+            <CopyableAddress address={agent.address} className="text-[#8899AA]" />
           </div>
 
           {/* Stats Grid */}

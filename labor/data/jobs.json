@@ -1,0 +1,14 @@
+{
+  "job_0xdemo_e_1775351273141": {
+    "jobId": "job_0xdemo_e_1775351273141",
+    "employer": "0xdemo_employer_address",
+    "dailyRateUSDC": 100,
+    "startDate": 148204857600000,
+    "endDate": 148204944000000,
+    "active": true,
+    "location": "paris",
+    "title": "work§§",
+    "description": "",
+    "createdAt": 1775351273141
+  }
+}

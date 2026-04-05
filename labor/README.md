@@ -97,19 +97,3 @@ pnpm dev
 Open http://localhost:3000/demo
 
 ---
-
-## Prize Tracks
-
-| Track | Integration | Prize |
-|-------|-------------|-------|
-| World ID 4.0 | ✅ Full | $8K |
-| Hedera HCS | ✅ Full | $6K |
-| WalletConnect Pay | ✅ Full | $4K |
-| Unlink | ✅ Full | $3K |
-| Dynamic | ✅ SDKs ready | $1.6K |
-| ENS | ✅ Architecture ready | $2K |
-| **Total** | | **~$24.6K** |
-
----
-
-**Built for ETHGlobal Cannes 2026**

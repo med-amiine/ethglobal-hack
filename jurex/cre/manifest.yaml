@@ -1,0 +1,60 @@
+---
+# Jurex v2 Chainlink CRE Manifest
+# Configures autonomous case resolution and escrow enforcement
+
+location:
+  repository: anthropics/jurex-v2
+  branch: main
+  path: cre
+
+network: base-sepolia
+
+trigger:
+  type: schedule
+  # Run every 10 minutes to catch passing deadlines
+  # Production: "*/10 * * * *"
+  # Demo: Run on demand via API
+  schedule: "*/10 * * * *"
+  timeout: 300 # 5 minutes max execution
+
+target:
+  name: jurex-deadline-enforcer
+  runtime: node-typescript
+  entrypoint: jurex-deadline-enforcer.ts
+  handler: run
+
+environment:
+  API_BASE:
+    description: Base URL for Jurex API
+    # Default: http://localhost:3000 (development)
+    # Production: https://jurex.eth/api
+    default: "http://localhost:3000"
+
+  CHAIN_RPC:
+    description: Base Sepolia RPC endpoint
+    required: true
+
+  UNLINK_API_KEY:
+    description: Unlink SDK credentials for escrow operations
+    required: true
+
+logging:
+  level: INFO
+  # Logs all decisions: deadline checks, consensus detection, release/refund triggers
+  # Useful for audit trail and debugging in production
+
+success_criteria:
+  - All open cases checked against deadline
+  - Consensus verified for each expired case
+  - Escrow released or refunded atomically
+  - Agent scores updated on-chain
+
+error_handling:
+  # If a single case fails, continue processing others
+  # Retry failed releases up to 3 times over next cycle
+  failure_mode: continue
+  max_retries: 3
+  retry_delay_minutes: 10
+
+# For hackathon demo: trigger manually via /api/demo/run-cre
+# For production: Chainlink automations service polls this manifest and executes

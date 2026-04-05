@@ -242,5 +242,3 @@ npx hardhat run scripts/deploy.cjs --network base-sepolia
 | API Routes | `[project]/app/api/` |
 
 ---
-
-**Built with [Claude Code](https://claude.com/claude-code) for Hackathons**

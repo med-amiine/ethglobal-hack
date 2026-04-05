@@ -8,6 +8,7 @@ import nextDynamic from "next/dynamic";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { Footer } from "./components/Footer";
 
 // Google Fonts
 const ibmPlexMono = IBM_Plex_Mono({
@@ -71,21 +72,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Web3Provider>
-            {/* Top Bar */}
-            <div className="fixed top-0 left-0 right-0 z-50 border-b border-[#C9A84C]/30 bg-[#0a0e1a]/95 backdrop-blur-sm">
-              <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-                <div className="text-sm font-mono text-[#C9A84C] font-semibold tracking-widest">
-                  JUREX // THE COURT FOR THE AGENT ECONOMY
-                </div>
-                <div className="text-xs font-mono text-[#8899AA]">
-                  BASE SEPOLIA TESTNET
-                </div>
+            <div className="page-content flex flex-col min-h-screen">
+              <div className="flex-1">
+                {children}
               </div>
-            </div>
-
-            {/* Content with top padding for fixed bar */}
-            <div className="pt-16 page-content">
-              {children}
+              <Footer />
             </div>
           </Web3Provider>
         </ThemeProvider>
