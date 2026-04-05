@@ -1,0 +1,22 @@
+{
+  "network": "arbitrumSepolia",
+  "chainId": "421614",
+  "timestamp": "2026-03-19T05:10:39.226Z",
+  "deployer": "0xD8CDe62aCB881329EBb4694f37314b7bBA77EbDe",
+  "type": "TEST (tiny stakes)",
+  "contracts": {
+    "JRXToken": "0xEDE88f95A4432dB584F9F2F2244312b146D572b4",
+    "CourtRegistry": "0x2d02a6A204de958cFa6551710681f230043bF646",
+    "CourtCaseFactoryTest": "0xeF82E15EA473dF494f0476ead243556350Ee9c91",
+    "AgenticCommerce": "0xDd570A7d5018d81BED8C772903Cfd3b11669aA8F",
+    "AgentCourtHook": "0xD14a340F8C61A8F4D4269Ef7Ba8357cFD498925F"
+  },
+  "staking": {
+    "baseFee": "0.0001 ETH",
+    "plaintiffStake": "0.0002 ETH",
+    "defendantStake": "0.0001 ETH",
+    "deadline": "5 minutes",
+    "judgeStakeMin": "1000 JRX",
+    "slashAmount": "100 JRX"
+  }
+}

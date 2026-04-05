@@ -1,0 +1,376 @@
+{
+  "timestamp": "2026-03-18T03:21:26.132Z",
+  "network": "arbitrum-sepolia",
+  "contracts": {
+    "JRXToken": "0x463053d5f14a24e580eD5703f376C06dE0d6420C",
+    "CourtRegistry": "0xB67E78e0396dD200900965F6Ec9D8b246ef3E23b",
+    "CourtCaseFactoryTest": "0x6e0c034FFEB81891100ae566c3C30050237a0914"
+  },
+  "wallets": {
+    "PLAINTIFF": "0x4a18aefCB2Ac898aDCD7bdb69A5722ef6A86Cf42",
+    "DEFENDANT": "0x7218407a7Ff61adFfb22C0A3CA0219cc14A9aBbd",
+    "JUDGE_1": "0x66B3DE10Daa0AF7150C9d5F95e294D35F4612a99",
+    "JUDGE_2": "0x6f9Eb0dF3fb57831dd20D5efd07e80B71056A15c",
+    "JUDGE_3": "0x0A130815Ae334223EE8D6f4f6AdcD43bE69651F3",
+    "JUDGE_4": "0xA8e99c9203FCf3d8347472e8A79Fc4a0D4D1AdE0",
+    "JUDGE_5": "0x34AACB093d18304119e7A7544eFDcE6b61466Bc5",
+    "DEPLOYER": "0xD8CDe62aCB881329EBb4694f37314b7bBA77EbDe"
+  },
+  "cases": {
+    "suiteC_D_E_F_J": "0xcAfcBc7fD1FF19E46aC5E4D35D57366734Ae887e",
+    "suiteG": "0xdBB6e1e328122265c2035c20Cbf672682945A4FF",
+    "suiteH_I": "0x0d1eE0aa4c5782B91d23f0062571cb3aaBE99043"
+  },
+  "results": [
+    {
+      "suite": "A1",
+      "name": "A1: Deployer has >= 1,000,000 JRX initial supply (totalSupply)",
+      "status": "PASS"
+    },
+    {
+      "suite": "A2",
+      "name": "A2: drip() gives 10,000 JRX to a fresh address",
+      "status": "PASS"
+    },
+    {
+      "suite": "A3",
+      "name": "A3: drip() fails on second call within 24h (same address)",
+      "status": "PASS"
+    },
+    {
+      "suite": "A4",
+      "name": "A4: mint() works for owner",
+      "status": "PASS"
+    },
+    {
+      "suite": "A5",
+      "name": "A5: mint() reverts for non-owner",
+      "status": "PASS"
+    },
+    {
+      "suite": "B1",
+      "name": "B1: JUDGE_1 approves and stakes 1000 JRX",
+      "status": "PASS"
+    },
+    {
+      "suite": "B2",
+      "name": "B2: JUDGE_2 stakes 1000 JRX",
+      "status": "PASS"
+    },
+    {
+      "suite": "B3",
+      "name": "B3: JUDGE_3 stakes 1000 JRX",
+      "status": "PASS"
+    },
+    {
+      "suite": "B4",
+      "name": "B4: getJudgePoolSize() >= 3",
+      "status": "PASS"
+    },
+    {
+      "suite": "B5",
+      "name": "B5: stakeAsJudge(0) reverts",
+      "status": "PASS"
+    },
+    {
+      "suite": "B6",
+      "name": "B6: staking without approval reverts",
+      "status": "PASS"
+    },
+    {
+      "suite": "B7",
+      "name": "B7: getEligibleJudges(PLAINTIFF, DEFENDANT) returns >= 3",
+      "status": "PASS"
+    },
+    {
+      "suite": "B8",
+      "name": "B8: JUDGE_1 unstakes -> judgeStakes == 0, pool size decreases",
+      "status": "PASS"
+    },
+    {
+      "suite": "B9",
+      "name": "B9: Re-stake JUDGE_1 back to 1000 JRX",
+      "status": "PASS"
+    },
+    {
+      "suite": "C1",
+      "name": "C1: PLAINTIFF files case vs DEFENDANT with 0.0002 ETH",
+      "status": "PASS"
+    },
+    {
+      "suite": "C2",
+      "name": "C2: case.state() == 1 (Summoned) or 2 (Active, reused)",
+      "status": "PASS"
+    },
+    {
+      "suite": "C3",
+      "name": "C3: case.plaintiff() == PLAINTIFF.address",
+      "status": "PASS"
+    },
+    {
+      "suite": "C4",
+      "name": "C4: case.defendant() == DEFENDANT.address",
+      "status": "PASS"
+    },
+    {
+      "suite": "C5",
+      "name": "C5: factory.getAllCases() includes the new case",
+      "status": "PASS"
+    },
+    {
+      "suite": "C6",
+      "name": "C6: case.deadlineToRespond() > 0",
+      "status": "PASS"
+    },
+    {
+      "suite": "C7",
+      "name": "C7: Filing with wrong ETH amount (0.0001) reverts",
+      "status": "PASS"
+    },
+    {
+      "suite": "C8",
+      "name": "C8: Filing where plaintiff == defendant reverts",
+      "status": "PASS"
+    },
+    {
+      "suite": "D1",
+      "name": "D1: DEFENDANT responds with 0.0001 ETH -> state Active",
+      "status": "PASS"
+    },
+    {
+      "suite": "D2",
+      "name": "D2: Responding again reverts (already Active)",
+      "status": "PASS"
+    },
+    {
+      "suite": "D3",
+      "name": "D3: Non-defendant cannot respond (PLAINTIFF tries -> revert)",
+      "status": "PASS"
+    },
+    {
+      "suite": "D4",
+      "name": "D4: defendantStake == 0.0001 ETH",
+      "status": "PASS"
+    },
+    {
+      "suite": "E1",
+      "name": "E1: assignJudgesToCase succeeds",
+      "status": "PASS"
+    },
+    {
+      "suite": "E2",
+      "name": "E2: case.state() == 3 (Deliberating)",
+      "status": "PASS"
+    },
+    {
+      "suite": "E3",
+      "name": "E3: case.getJudges().length == 3",
+      "status": "PASS"
+    },
+    {
+      "suite": "E4",
+      "name": "E4: All 3 judges are from the staker pool",
+      "status": "PASS"
+    },
+    {
+      "suite": "E5",
+      "name": "E5: Calling assignJudgesToCase again reverts",
+      "status": "PASS"
+    },
+    {
+      "suite": "F1",
+      "name": "F1: First judge votes PlaintiffWins (true)",
+      "status": "PASS"
+    },
+    {
+      "suite": "F2",
+      "name": "F2: Second judge votes PlaintiffWins (true) -> triggers verdict",
+      "status": "PASS"
+    },
+    {
+      "suite": "F3",
+      "name": "F3: case.state() == 4 (Resolved)",
+      "status": "PASS"
+    },
+    {
+      "suite": "F4",
+      "name": "F4: case.plaintiffWins() == true",
+      "status": "PASS"
+    },
+    {
+      "suite": "F5",
+      "name": "F5: Third judge cannot vote after verdict (revert)",
+      "status": "PASS"
+    },
+    {
+      "suite": "F6",
+      "name": "F6: Second judge cannot vote twice (revert - already resolved)",
+      "status": "PASS"
+    },
+    {
+      "suite": "F7",
+      "name": "F7: Non-judge cannot vote (revert)",
+      "status": "PASS"
+    },
+    {
+      "suite": "F8",
+      "name": "F8: verdictRenderedAt > 0",
+      "status": "PASS"
+    },
+    {
+      "suite": "F9",
+      "name": "F9: No-show judge (third) was slashed 100 JRX",
+      "status": "PASS"
+    },
+    {
+      "suite": "G1",
+      "name": "G1: File a new case for deadline test",
+      "status": "PASS"
+    },
+    {
+      "suite": "G2",
+      "name": "G2: missedDeadline() before deadline -> revert \"Deadline not passed\"",
+      "status": "PASS"
+    },
+    {
+      "suite": "G3",
+      "name": "G3: Wait for 5-minute deadline and call missedDeadline()",
+      "status": "SKIP",
+      "reason": "SKIP_WAIT: Would need 5 minutes for deadline"
+    },
+    {
+      "suite": "H1",
+      "name": "H1: File new case and defendant responds (Active state)",
+      "status": "PASS"
+    },
+    {
+      "suite": "H2",
+      "name": "H2: PLAINTIFF submits evidence",
+      "status": "PASS"
+    },
+    {
+      "suite": "H3",
+      "name": "H3: DEFENDANT submits evidence",
+      "status": "PASS"
+    },
+    {
+      "suite": "H4",
+      "name": "H4: getEvidenceCount() == 2",
+      "status": "PASS"
+    },
+    {
+      "suite": "H5",
+      "name": "H5: Non-party cannot submit evidence (JUDGE_1 tries -> revert)",
+      "status": "PASS"
+    },
+    {
+      "suite": "I0",
+      "name": "I0: Assign judges to case H for deliberation timeout test",
+      "status": "PASS"
+    },
+    {
+      "suite": "I1",
+      "name": "I1: resolveAfterDeadline() before timeout -> revert \"Timeout not reached\"",
+      "status": "PASS"
+    },
+    {
+      "suite": "I2",
+      "name": "I2: After 30 min timeout, resolveAfterDeadline() succeeds",
+      "status": "SKIP",
+      "reason": "SKIP_WAIT: Would need 30 minutes"
+    },
+    {
+      "suite": "J1",
+      "name": "J1: verdictRenderedAt > 0 on resolved case",
+      "status": "PASS"
+    },
+    {
+      "suite": "J2",
+      "name": "J2: DEFENDANT (loser) files appeal with 0.0003 ETH -> Appealed(7)",
+      "status": "PASS"
+    },
+    {
+      "suite": "J3",
+      "name": "J3: case.isAppeal() == true",
+      "status": "PASS"
+    },
+    {
+      "suite": "J4",
+      "name": "J4: case.appealUsed() == true",
+      "status": "PASS"
+    },
+    {
+      "suite": "J5",
+      "name": "J5: PLAINTIFF (winner) cannot file another appeal (already appealed)",
+      "status": "PASS"
+    },
+    {
+      "suite": "J6",
+      "name": "J6: Assign 5 judges for appeal round",
+      "status": "PASS"
+    },
+    {
+      "suite": "J7",
+      "name": "J7: case.getJudges().length == 5",
+      "status": "PASS"
+    },
+    {
+      "suite": "J8",
+      "name": "J8: 3 of 5 judges vote plaintiffWins -> verdict (3/5 threshold)",
+      "status": "PASS"
+    },
+    {
+      "suite": "J9",
+      "name": "J9: case.state() == 4 (Resolved) after appeal verdict",
+      "status": "PASS"
+    },
+    {
+      "suite": "J10",
+      "name": "J10: Second appeal reverts (appeal already used)",
+      "status": "PASS"
+    },
+    {
+      "suite": "K1",
+      "name": "K1: courtFeesCollected > 0 on resolved case",
+      "status": "PASS"
+    },
+    {
+      "suite": "K2",
+      "name": "K2: sweepFeesFromCase from factory owner -> fees transferred",
+      "status": "PASS"
+    },
+    {
+      "suite": "K3",
+      "name": "K3: courtFeesCollected == 0 after sweep",
+      "status": "PASS"
+    },
+    {
+      "suite": "K4",
+      "name": "K4: Non-owner cannot sweep (PLAINTIFF tries -> revert)",
+      "status": "PASS"
+    },
+    {
+      "suite": "L1",
+      "name": "L1: At least one judge has been slashed (stake < 1000 JRX)",
+      "status": "PASS"
+    },
+    {
+      "suite": "L2",
+      "name": "L2: Winning plaintiff reputation > 100",
+      "status": "SKIP",
+      "reason": "Test wallets are not registered agents"
+    },
+    {
+      "suite": "L3",
+      "name": "L3: Losing defendant reputation < 100",
+      "status": "SKIP",
+      "reason": "Test wallets are not registered agents"
+    }
+  ],
+  "summary": {
+    "total": 68,
+    "passed": 64,
+    "failed": 0,
+    "skipped": 4
+  }
+}

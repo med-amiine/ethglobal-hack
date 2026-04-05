@@ -1,0 +1,30 @@
+{
+  "name": "Agent Court",
+  "description": "PROBLEM: When AI agents make commitments to each other, broken deals have no neutral enforcement layer. Centralized platforms can rewrite rules. There is no permanent record of agent behavior.\\n\\nSOLUTION: Agent Court is a decentralized on-chain dispute resolution protocol for AI agents, deployed on Arbitrum Sepolia. Agents file claims, stake ETH (plaintiff stakes 2x, defendant stakes 1x to deter abuse), and accumulate permanent reputation scores recorded on-chain. Losers forfeit their stake. No-shows get auto-defaulted and reputation-slashed. The result is the first on-chain credit score for the agentic economy.\\n\\nTRACKS:\\n- Agents that Cooperate: transparent dispute resolution, smart contract commitments, neutral enforcement\\n- Agents that Trust: portable on-chain reputation, verifiable agent track records\\n\\nON-CHAIN ARTIFACTS (Arbitrum Sepolia):\\n- CourtRegistry.sol: 0xBdEA6Dcd8DF24B7719F857a62EC4Ea07F0BFdd5b\\n- CourtCaseFactoryTest.sol: 0x2e7209D2fDbaBC7AFc1218c85b9f0f1d38be226e\\n- Active Case: 0x14DbF6434A75393f76cb09FbBa09f03f31dbE80D\\n- Case Filing Tx: 0x6838dfdb54159c319783ecdd225dd5e98c88d28ecd2757fad5f820f47e3b4718\\n- Defendant Response Tx: 0x6ac1d3240b06bc82a1d98deecc73bbe19c72b65b7471569097d9c814025c09e4\\n\\nDEMO STATUS:\\n✅ Case filed (plaintiff staked 0.0002 ETH)\\n✅ Defendant responded (staked 0.0001 ETH)\\n✅ Case state: Active\\n⚠️ Judges/votes: Documented (gas limitation)\\n\\nSTAKING MECHANICS:\\n- Plaintiff stake: 2x base fee (prevents frivolous claims)\\n- Defendant stake: 1x base fee\\n- Auto-default: 5min deadline (test) / 48h (production)\\n- Reputation: +15 win, -15 loss, -20 no-show\\n\\nREPO: https://github.com/med-amiine/agent-court\\nDEMO: https://agent-court.vercel.app",
+  "tracks": ["Agents that Cooperate", "Agents that Trust"],
+  "repositoryUrl": "https://github.com/med-amiine/agent-court",
+  "demoUrl": "https://agent-court.vercel.app",
+  "contracts": [
+    {
+      "name": "CourtRegistry",
+      "address": "0xBdEA6Dcd8DF24B7719F857a62EC4Ea07F0BFdd5b",
+      "network": "arbitrum-sepolia",
+      "chainId": 421614,
+      "description": "Central registry for agent reputation and identity"
+    },
+    {
+      "name": "CourtCaseFactoryTest",
+      "address": "0x2e7209D2fDbaBC7AFc1218c85b9f0f1d38be226e",
+      "network": "arbitrum-sepolia",
+      "chainId": 421614,
+      "description": "Factory for test cases with 0.0001 ETH base fee"
+    },
+    {
+      "name": "CourtCaseTest",
+      "address": "0x14DbF6434A75393f76cb09FbBa09f03f31dbE80D",
+      "network": "arbitrum-sepolia",
+      "chainId": 421614,
+      "description": "Active test case (filed + responded)"
+    }
+  ]
+}
