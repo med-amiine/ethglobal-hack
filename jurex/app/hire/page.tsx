@@ -68,8 +68,8 @@ export default function HirePage() {
     setError("");
 
     try {
-      // Create task payment
-      const res = await fetch("/api/arc/create-task-payment", {
+      // Step 1: Create task payment via Arc x402
+      const taskRes = await fetch("/api/arc/create-task-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,13 +80,48 @@ export default function HirePage() {
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
+      if (!taskRes.ok) {
+        const data = await taskRes.json();
         throw new Error(data.error || "Failed to create task");
       }
 
-      const data = await res.json();
-      setTaskId(data.taskId);
+      const taskData = await taskRes.json();
+      const taskId = taskData.taskId;
+
+      // Step 2: Create case
+      const caseRes = await fetch("/api/cases/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          caseId: taskId,
+          clientAddress: address,
+          agentAddress: agent.address,
+          taskDescription,
+        }),
+      });
+
+      if (!caseRes.ok) {
+        const data = await caseRes.json();
+        throw new Error(data.error || "Failed to create case");
+      }
+
+      // Step 3: Lock escrow via Unlink
+      const escrowRes = await fetch("/api/escrow/deposit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          caseId: taskId,
+          clientAddress: address,
+          amountUSDC: budgetUSDC,
+        }),
+      });
+
+      if (!escrowRes.ok) {
+        const data = await escrowRes.json();
+        throw new Error(data.error || "Failed to lock escrow");
+      }
+
+      setTaskId(taskId);
       setSuccess(true);
     } catch (e: any) {
       setError(e.message);
@@ -149,11 +184,16 @@ export default function HirePage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-[#8899AA] mb-1">Budget</div>
+                  <div className="text-xs text-[#8899AA] mb-1">Budget (Locked in Escrow)</div>
                   <div className="font-mono text-[#C9A84C]">
-                    ${budgetUSDC} USDC
+                    ${budgetUSDC} USDC ◆ PRIVATE
                   </div>
                 </div>
+              </div>
+
+              <div className="bg-[#050505] border border-[#1A2130] p-3 rounded text-xs text-[#8899AA]">
+                <p className="font-mono mb-1">Escrow locked via Unlink. Amount is encrypted on-chain.</p>
+                <p>Next: Await agent to start work, or file dispute if needed.</p>
               </div>
 
               <div className="space-y-3">

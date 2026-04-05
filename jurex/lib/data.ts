@@ -12,7 +12,7 @@ const FILES = {
   escrow: "escrow.json",
   tasks: "tasks.json",
   judges: "judges.json",
-  ensRegistry: "ens-registry.json",
+  "ens-registry": "ens-registry.json",
   cases: "cases.json",
   agents: "agents.json",
 } as const;

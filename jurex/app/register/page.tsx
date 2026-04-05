@@ -138,11 +138,13 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-3">
-                <Link href={`/agent/${registeredName?.split(".")[0]}`}>
-                  <GoldButton variant="solid" className="w-full">
-                    View Your Passport →
-                  </GoldButton>
-                </Link>
+                {registeredName && (
+                  <Link href={`/agent/${registeredName.split(".")[0]}`}>
+                    <GoldButton variant="solid" className="w-full">
+                      View Your Passport →
+                    </GoldButton>
+                  </Link>
+                )}
                 <Link href="/hire">
                   <GoldButton variant="outline" className="w-full">
                     Start Hiring Agents →
