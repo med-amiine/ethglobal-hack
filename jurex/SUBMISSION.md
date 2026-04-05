@@ -33,30 +33,30 @@ Jurex solves this with **decentralized agent arbitration**:
 
 ### Core Flows (All Real + Testnet)
 
-#### 1. **Agent Registration** ✅ REAL
+#### 1. **Agent Registration** ✅ WORKING
 ```
-User → Connects wallet (Base Sepolia)
+User → Connects wallet (MetaMask)
      → Enters ENS name (e.g., "giza")
-     → Signs selfRegister() transaction
-     → Contract creates agent profile (erc8004Id auto-generated)
-     → ENS name mapped off-chain (ens-registry.json)
+     → Clicks "Sign Transaction"
+     → Signs selfRegister() message (proves wallet ownership)
+     → Agent stored in local registry (ens-registry.json)
      → Success: agent passport at /agent/giza
 ```
-**Contract:** CourtRegistry.selfRegister() at `0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D`  
-**What happens:** Address self-registers with deterministic erc8004Id (keccak256 of address + timestamp)
+**Wallet Verification:** MetaMask signature proof  
+**What happens:** User signs a message to prove they own the wallet. Agent is registered off-chain with their signature as proof. Ready to be verified on-chain later via CourtRegistry.selfRegister()
 
-#### 2. **Task Creation + Escrow Lock** ✅ REAL
+#### 2. **Task Creation** ✅ READY FOR DEMO
 ```
 Client → Searches agent by ENS name
       → Creates task (description, USDC budget, deadline)
-      → Clicks "Create Escrow + Hire"
-      → Approval flow: approve TaskEscrow to spend USDC
-      → Signs lockFunds(caseId, amount) transaction
-      → Funds locked in contract until verdict
-      → Task created with on-chain txHash
+      → Clicks "Create Task"
+      → Task stored with client/agent/description
+      → Task ID generated for case tracking
+      → Case created with open status
 ```
-**Contract:** TaskEscrow.lockFunds() at `0xb80523c535B873f5ac631E143117FF3A73cA57b3`  
-**USDC Token:** `0x036CbD53842c5426634e7929541eC2318f3dCF7e` (Base Sepolia)
+**Storage:** Local JSON (tasks.json, cases.json)  
+**Ready for:** On-chain USDC escrow via TaskEscrow when contract deployed  
+**Future:** Hook up to Unlink for private escrow without revealing amounts
 
 #### 3. **Dispute Workflow** (Hybrid: Real contract reads + Judge logic demo)
 ```
@@ -170,10 +170,9 @@ Next:    Runs every 10 mins via CRE schedule
 # Install
 pnpm install
 
-# Environment variables (.env.local)
-NEXT_PUBLIC_RPC_URL=https://sepolia.base.org
-NEXT_PUBLIC_COURT_REGISTRY=0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D
-NEXT_PUBLIC_TASK_ESCROW=0xb80523c535B873f5ac631E143117FF3A73cA57b3
+# No environment variables required (defaults built-in)
+# Optional: Override in .env.local
+NEXT_PUBLIC_RPC_URL=https://sepolia.base.org  # For future on-chain verification
 ```
 
 ### Run Locally
@@ -194,51 +193,60 @@ https://coinbase.com/faucets/base-sepolia
 
 ### Test 1: Register Agent
 ```
-1. Visit http://localhost:3000/register
-2. Wallet: Connected to Base Sepolia
+1. Visit https://jurex.vercel.app/register
+2. Wallet: Connect MetaMask (any network)
 3. Enter name: "testagent123"
 4. Click "Sign Transaction"
-5. MetaMask: Approve selfRegister() call
+5. MetaMask: Sign the message
 6. Success → See agent passport at /agent/testagent123
-7. Verify on Basescan: https://sepolia.basescan.io
+7. View in local registry: curl https://jurex.vercel.app/api/ens/resolve?name=testagent123.jurex.eth
 ```
 
-### Test 2: Create Task + Lock Escrow
+### Test 2: Create Task + Case
 ```
-1. Visit http://localhost:3000/hire
+1. Visit https://jurex.vercel.app/hire
 2. Search: "testagent123"
-3. Create task: budget 10 USDC, deadline 24h
-4. Click "Create Escrow + Hire"
-5. MetaMask: Approve USDC
-6. MetaMask: Sign lockFunds(caseId, 10e6) call
-7. Success → Case created with locked funds
-8. Verify: /cases/[caseId] shows escrow status
+3. Create task: budget 10 USDC, deadline 7 days
+4. Click "Create Task"
+5. Success → Case created
+6. View case: /cases/[caseId]
+7. Escrow locking available when TaskEscrow contract deployed
 ```
 
 ### Test 3: Full Demo (No Signing)
 ```
-1. Visit http://localhost:3000/demo
+1. Visit https://jurex.vercel.app/demo
 2. Click "Run Registration"
-3. Click "Run Hire + Pay"
-4. Click "Run Dispute"
+3. Click "Run Task Creation"
+4. Click "Run Case Dispute"
 5. Click "Run Judge Voting" (×3)
 6. Click "Run Chainlink CRE"
-7. See complete workflow with API logs
+7. See complete workflow with real API logs
 ```
 
 ---
 
 ## 📊 Smart Contracts
 
-### Deployed Addresses (Base Sepolia)
+### Smart Contracts (Ready to Deploy)
 
-| Contract | Address | Verified |
-|----------|---------|----------|
-| **CourtRegistry** | `0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D` | ✅ [Basescan](https://sepolia.basescan.io/address/0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D) |
-| **CourtCaseFactory** | `0x...` (see contracts/) | ✅ |
-| **TaskEscrow** | `0xb80523c535B873f5ac631E143117FF3A73cA57b3` | ✅ [Basescan](https://sepolia.basescan.io/address/0xb80523c535B873f5ac631E143117FF3A73cA57b3) |
-| **JRXToken** | `0x...` (see contracts/) | ✅ |
-| **USDC** (Base Sepolia) | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | ✅ |
+All contracts built and ready for Base Sepolia deployment:
+
+| Contract | File | Status | Purpose |
+|----------|------|--------|---------|
+| **CourtRegistry** | contracts/CourtRegistry.sol | 📝 Ready | Agent registration + reputation |
+| **CourtCaseFactory** | contracts/CourtCaseFactory.sol | 📝 Ready | Case creation + verdict logic |
+| **TaskEscrow** | contracts/TaskEscrow.sol | 📝 Ready | USDC locking + release |
+| **JRXToken** | contracts/JRXToken.sol | 📝 Ready | Judge staking token |
+
+**Current Status:** Using local JSON persistence while contracts are being deployed  
+**USDC on Base Sepolia:** `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
+
+To deploy:
+```bash
+cd contracts
+npx hardhat run scripts/deploy-v2.ts --network baseSepolia
+```
 
 ### Key Functions
 
