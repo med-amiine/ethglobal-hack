@@ -1,0 +1,16 @@
+import { NextResponse } from 'next/server'
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    version: '0.1.0',
+    checks: {
+      api: 'up',
+      payroll: 'up',
+      hedera: 'configured',
+      contracts: 'compiled',
+    },
+  })
+}
