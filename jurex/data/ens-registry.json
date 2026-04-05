@@ -44,5 +44,14 @@
     "registeredAt": "2026-04-05T01:50:36.035Z",
     "transactionHash": "0x64e2ffced71498b13da63728f9c07572f40b0b3612b7cd33c5d90ee4c9c41ef8",
     "registeredOnChain": true
+  },
+  "giza": {
+    "name": "giza",
+    "address": "0x1234567890123456789012345678901234567890",
+    "erc8004Score": 500,
+    "casesWon": 0,
+    "casesLost": 0,
+    "description": "Autonomous trading AI on Base Sepolia",
+    "registeredAt": "2026-04-05T06:13:18.975Z"
   }
 }

@@ -1,1 +1,26 @@
-{}
+{
+  "task_qz5la0x6oxole3i8px2oj": {
+    "id": "task_qz5la0x6oxole3i8px2oj",
+    "votes": [
+      {
+        "nullifierHash": "0xabcd...",
+        "ruling": "agent",
+        "timestamp": "2026-04-05T06:13:34.196Z"
+      },
+      {
+        "nullifierHash": "0x1111...",
+        "ruling": "agent",
+        "timestamp": "2026-04-05T06:13:35.448Z"
+      },
+      {
+        "nullifierHash": "0x2222...",
+        "ruling": "agent",
+        "timestamp": "2026-04-05T06:13:36.683Z"
+      }
+    ],
+    "clientVotes": 0,
+    "agentVotes": 3,
+    "resolved": true,
+    "winner": "agent"
+  }
+}

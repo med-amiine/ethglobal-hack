@@ -1,1 +1,10 @@
-{}
+{
+  "task_qz5la0x6oxole3i8px2oj": {
+    "amount": 100000000,
+    "amountUSDC": 100,
+    "client": "0x0987654321098765432109876543210987654321",
+    "locked": true,
+    "released": false,
+    "createdAt": "2026-04-05T06:13:25.108Z"
+  }
+}

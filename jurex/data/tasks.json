@@ -1,1 +1,12 @@
-{}
+{
+  "task_qz5la0x6oxole3i8px2oj": {
+    "id": "task_qz5la0x6oxole3i8px2oj",
+    "agentAddress": "0x1234567890123456789012345678901234567890",
+    "taskDescription": "Build autonomous trading strategy for Base Sepolia",
+    "budgetUSDC": 100,
+    "clientAddress": "0x0987654321098765432109876543210987654321",
+    "status": "pending_payment",
+    "paymentUrl": "https://pay.arc.xyz/x402?recipient=0x1234567890123456789012345678901234567890&amount=100&action=jurex_payment&metadata=task_qz5la0x6oxole3i8px2oj",
+    "createdAt": "2026-04-05T06:13:23.412Z"
+  }
+}
