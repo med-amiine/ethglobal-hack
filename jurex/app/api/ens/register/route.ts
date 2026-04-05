@@ -5,12 +5,12 @@ import { validateENSName } from "@/lib/ens";
 /**
  * POST /api/ens/register
  * Register agent on jurex.eth offchain resolver
- * Body: { agentName, address, description }
+ * Body: { agentName, address, description, transactionHash (optional) }
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { agentName, address, description } = body;
+    const { agentName, address, description, transactionHash } = body;
 
     // Validate
     if (!agentName || !address) {
@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
       casesLost: 0,
       description: description?.slice(0, 200) || "",
       registeredAt: new Date().toISOString(),
+      ...(transactionHash && { transactionHash }),
     });
 
     console.log(

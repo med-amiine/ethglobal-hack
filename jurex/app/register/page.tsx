@@ -116,41 +116,21 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      // Verify transaction on-chain
-      const res = await fetch("/api/ens/register-onchain-submit", {
+      // Register locally after wallet signature
+      const res = await fetch("/api/ens/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           agentName,
           address,
+          description,
           transactionHash: txHash,
         }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        console.error("On-chain verification failed:", data);
-
-        // Fallback: Register locally if on-chain verification fails
-        console.log("Falling back to local registration...");
-        const fallbackRes = await fetch("/api/ens/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            agentName,
-            address,
-            description,
-          }),
-        });
-
-        if (!fallbackRes.ok) {
-          throw new Error(data.error || "Registration failed");
-        }
-
-        const fallbackData = await fallbackRes.json();
-        setRegisteredName(fallbackData.ensName);
-        setSuccess(true);
-        return;
+        throw new Error(data.error || "Registration failed");
       }
 
       const data = await res.json();
@@ -369,9 +349,9 @@ export default function RegisterPage() {
 
               {/* Blockchain Info */}
               <div className="bg-[#0a0e1a] p-4 border border-[#C9A84C]/20 rounded text-xs text-[#8899AA] space-y-2">
-                <p className="font-mono font-bold text-[#C9A84C]">🔗 On-Chain Registration</p>
+                <p className="font-mono font-bold text-[#C9A84C]">🔗 Wallet Verification</p>
                 <p>Contract: CourtRegistry (Base Sepolia)</p>
-                <p>Function: registerAgent(address, bytes32)</p>
+                <p>Function: selfRegister()</p>
                 {txHash && (
                   <p className="text-[#4ade80]">
                     ✓ Signed: {txHash.slice(0, 10)}...{txHash.slice(-8)}
