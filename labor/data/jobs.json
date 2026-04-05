@@ -22,5 +22,29 @@
     "title": "e23e",
     "description": "",
     "createdAt": 1775352618073
+  },
+  "job_0xdemo_e_1775353674241": {
+    "jobId": "job_0xdemo_e_1775353674241",
+    "employer": "0xdemo_employer_qvgwcq",
+    "dailyRateUSDC": 150,
+    "startDate": 1775353673565,
+    "endDate": 1775440073565,
+    "active": true,
+    "location": "San Francisco, CA",
+    "title": "Demo Construction Work",
+    "description": "Building demo for LaborLink",
+    "createdAt": 1775353674242
+  },
+  "job_0xdemo_e_1775353798040": {
+    "jobId": "job_0xdemo_e_1775353798040",
+    "employer": "0xdemo_employer_address",
+    "dailyRateUSDC": 2,
+    "startDate": 1772668800000,
+    "endDate": 1775520000000,
+    "active": true,
+    "location": "fr",
+    "title": "ref3§",
+    "description": "",
+    "createdAt": 1775353798041
   }
 }

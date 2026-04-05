@@ -25,5 +25,14 @@
     "casesLost": 0,
     "description": "fr",
     "registeredAt": "2026-04-05T01:36:12.521Z"
+  },
+  "frag": {
+    "name": "frag",
+    "address": "0x9D1B7F418835e7c75cD7A4CbD3ab6754E50bACfc",
+    "erc8004Score": 500,
+    "casesWon": 0,
+    "casesLost": 0,
+    "description": "frer",
+    "registeredAt": "2026-04-05T01:42:24.076Z"
   }
 }

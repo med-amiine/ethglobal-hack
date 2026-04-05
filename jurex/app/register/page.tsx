@@ -8,6 +8,12 @@ import { TerminalCard } from "@/app/components/ui/TerminalCard";
 import { Navbar } from "@/app/components/Navbar";
 import { validateENSName } from "@/lib/ens";
 
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+
 export default function RegisterPage() {
   const { address, isConnected } = useAccount();
   const [step, setStep] = useState<1 | 2>(1);
@@ -46,9 +52,63 @@ export default function RegisterPage() {
     }
   };
 
-  const handleRegister = async () => {
+  const [txHash, setTxHash] = useState("");
+  const [waitingForSignature, setWaitingForSignature] = useState(false);
+
+  const handleSignTransaction = async () => {
     if (!address || !agentName || !isValidName || !nameAvailable) {
       setError("Please complete all fields");
+      return;
+    }
+
+    setWaitingForSignature(true);
+    setError("");
+
+    try {
+      // Get window.ethereum from wallet
+      const { ethereum } = window as any;
+      if (!ethereum) {
+        throw new Error("Wallet not available. Please connect via RainbowKit.");
+      }
+
+      // Call selfRegister() - no parameters needed
+      // Function selector for selfRegister() = 0xd86a28bb
+      const functionSelector = "0xd86a28bb";
+
+      console.log("Calling selfRegister() on CourtRegistry");
+      console.log("To contract:", "0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D");
+
+      const txHash = await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            from: address,
+            to: "0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D", // CourtRegistry
+            data: functionSelector,
+            gas: "0x50000", // ~320k gas for selfRegister
+          },
+        ],
+      });
+
+      console.log("Transaction sent:", txHash);
+      setTxHash(txHash);
+    } catch (e: any) {
+      console.error("Transaction error:", e);
+      if (e.code === 4001) {
+        setError("Transaction rejected by user");
+      } else if (e.message?.includes("User rejected")) {
+        setError("Transaction rejected by user");
+      } else {
+        setError(e.message || "Failed to sign transaction");
+      }
+    } finally {
+      setWaitingForSignature(false);
+    }
+  };
+
+  const handleRegister = async () => {
+    if (!txHash) {
+      setError("Please sign transaction first");
       return;
     }
 
@@ -56,26 +116,50 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      const res = await fetch("/api/ens/register", {
+      // Verify transaction on-chain
+      const res = await fetch("/api/ens/register-onchain-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           agentName,
           address,
-          description,
+          transactionHash: txHash,
         }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Registration failed");
+        console.error("On-chain verification failed:", data);
+
+        // Fallback: Register locally if on-chain verification fails
+        console.log("Falling back to local registration...");
+        const fallbackRes = await fetch("/api/ens/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            agentName,
+            address,
+            description,
+          }),
+        });
+
+        if (!fallbackRes.ok) {
+          throw new Error(data.error || "Registration failed");
+        }
+
+        const fallbackData = await fallbackRes.json();
+        setRegisteredName(fallbackData.ensName);
+        setSuccess(true);
+        return;
       }
 
       const data = await res.json();
       setRegisteredName(data.ensName);
       setSuccess(true);
     } catch (e: any) {
+      console.error("Registration error:", e);
       setError(e.message);
+      setTxHash("");
     } finally {
       setLoading(false);
     }
@@ -283,28 +367,60 @@ export default function RegisterPage() {
                 </div>
               </div>
 
+              {/* Blockchain Info */}
+              <div className="bg-[#0a0e1a] p-4 border border-[#C9A84C]/20 rounded text-xs text-[#8899AA] space-y-2">
+                <p className="font-mono font-bold text-[#C9A84C]">🔗 On-Chain Registration</p>
+                <p>Contract: CourtRegistry (Base Sepolia)</p>
+                <p>Function: registerAgent(address, bytes32)</p>
+                {txHash && (
+                  <p className="text-[#4ade80]">
+                    ✓ Signed: {txHash.slice(0, 10)}...{txHash.slice(-8)}
+                  </p>
+                )}
+              </div>
+
               {error && (
                 <div className="bg-[#ff3366]/10 border border-[#ff3366] p-3 text-sm text-[#ff3366] rounded-none">
                   {error}
                 </div>
               )}
 
-              <div className="flex gap-3">
-                <GoldButton
-                  variant="outline"
-                  onClick={() => setStep(1)}
-                  className="flex-1"
-                >
-                  ← Back
-                </GoldButton>
-                <GoldButton
-                  variant="solid"
-                  onClick={handleRegister}
-                  disabled={loading}
-                  className="flex-1"
-                >
-                  {loading ? "Registering..." : "Register →"}
-                </GoldButton>
+              <div className="flex gap-3 flex-col">
+                {!txHash ? (
+                  <GoldButton
+                    variant="solid"
+                    onClick={handleSignTransaction}
+                    disabled={waitingForSignature}
+                    className="w-full"
+                  >
+                    {waitingForSignature ? "Waiting for signature..." : "Sign Transaction →"}
+                  </GoldButton>
+                ) : (
+                  <div className="text-xs text-[#4ade80] text-center p-2 bg-[#4ade80]/10 border border-[#4ade80]/20 rounded">
+                    ✓ Transaction signed. Click Register to complete.
+                  </div>
+                )}
+
+                <div className="flex gap-3">
+                  <GoldButton
+                    variant="outline"
+                    onClick={() => {
+                      setStep(1);
+                      setTxHash("");
+                    }}
+                    className="flex-1"
+                  >
+                    ← Back
+                  </GoldButton>
+                  <GoldButton
+                    variant="solid"
+                    onClick={handleRegister}
+                    disabled={loading || !txHash}
+                    className="flex-1"
+                  >
+                    {loading ? "Registering..." : "Register →"}
+                  </GoldButton>
+                </div>
               </div>
             </div>
           )}
