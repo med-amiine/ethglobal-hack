@@ -1,16 +1,12 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #C9A84C;
-  --color-primary-light: rgb(201 168 76 / 0.1);
-  --color-success: #4ade80;
-  --color-error: #ef4444;
-  --color-background: #0a0e1a;
-}
-
 @layer base {
   :root {
-    color-scheme: dark;
+    --color-primary: #C9A84C;
+    --color-primary-light: rgb(201 168 76 / 0.1);
+    --color-success: #4ade80;
+    --color-error: #ef4444;
+    --color-background: #0a0e1a;
   }
 
   * {
@@ -50,5 +46,39 @@
 
   ::selection {
     @apply bg-amber-500 text-black;
+  }
+}
+
+@layer utilities {
+  .bg-primary {
+    @apply bg-[var(--color-primary)];
+  }
+
+  .bg-primary-light {
+    @apply bg-[var(--color-primary-light)];
+  }
+
+  .text-primary {
+    @apply text-[var(--color-primary)];
+  }
+
+  .text-success {
+    @apply text-[var(--color-success)];
+  }
+
+  .text-error {
+    @apply text-[var(--color-error)];
+  }
+
+  .border-primary {
+    @apply border-[var(--color-primary)];
+  }
+
+  .border-success {
+    @apply border-[var(--color-success)];
+  }
+
+  .bg-background {
+    @apply bg-[var(--color-background)];
   }
 }
