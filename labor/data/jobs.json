@@ -10,5 +10,17 @@
     "title": "work§§",
     "description": "",
     "createdAt": 1775351273141
+  },
+  "job_0xdemo_e_1775352618073": {
+    "jobId": "job_0xdemo_e_1775352618073",
+    "employer": "0xdemo_employer_address",
+    "dailyRateUSDC": 23,
+    "startDate": -61468416000000,
+    "endDate": -61468329600000,
+    "active": true,
+    "location": "32e2",
+    "title": "e23e",
+    "description": "",
+    "createdAt": 1775352618073
   }
 }
