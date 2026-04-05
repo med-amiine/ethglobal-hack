@@ -1,9 +1,9 @@
-// Contract ABIs and addresses for Arbitrum Sepolia
-// Deployed test contracts: CourtRegistry + CourtCaseFactoryTest (BASE_FEE = 0.0001 ETH)
+// Contract ABIs and addresses for Base Sepolia v2
+// Deployed contracts: CourtRegistry + CourtCaseFactoryTest + AgenticCommerce + AgentCourtHook
 
 export const CONTRACTS = {
   CourtRegistry: {
-    address: "0x2d02a6A204de958cFa6551710681f230043bF646" as `0x${string}`,
+    address: "0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D" as `0x${string}`,
     abi: [
       {
         inputs: [],
@@ -123,7 +123,7 @@ export const CONTRACTS = {
     ]
   },
   CourtCaseFactory: {
-    address: "0xeF82E15EA473dF494f0476ead243556350Ee9c91" as `0x${string}`,
+    address: "0xD07fbDE7E5eC68e5aa863DE4D077Fc0350dE18c6" as `0x${string}`,
     abi: [
       {
         inputs: [{ internalType: "address", name: "_registry", type: "address" }],
@@ -438,7 +438,7 @@ export const CONTRACTS = {
 
 // JRX Token contract
 export const JRX_TOKEN = {
-  address: "0xEDE88f95A4432dB584F9F2F2244312b146D572b4" as `0x${string}`,
+  address: "0x847791adb10F75113ac103dFE11Cf764972F804b" as `0x${string}`,
   abi: [
     {
       inputs: [{ internalType: "address", name: "to", type: "address" }],
@@ -474,18 +474,82 @@ export const JRX_TOKEN = {
   ]
 };
 
+// TaskEscrow contract (private USDC escrow)
+export const TASK_ESCROW = {
+  address: "0xb80523c535B873f5ac631E143117FF3A73cA57b3" as `0x${string}`,
+  abi: [
+    {
+      inputs: [{ internalType: "uint256", name: "caseId", type: "uint256" }, { internalType: "uint256", name: "amount", type: "uint256" }, { internalType: "address", name: "client", type: "address" }],
+      name: "lockFunds",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function"
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "caseId", type: "uint256" }, { internalType: "address", name: "winner", type: "address" }],
+      name: "releaseTo",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function"
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "caseId", type: "uint256" }],
+      name: "refund",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function"
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "caseId", type: "uint256" }],
+      name: "getEscrow",
+      outputs: [{ components: [{ internalType: "uint256", name: "amount", type: "uint256" }, { internalType: "address", name: "client", type: "address" }, { internalType: "bool", name: "locked", type: "bool" }, { internalType: "bool", name: "released", type: "bool" }], internalType: "struct TaskEscrow.EscrowInfo", name: "", type: "tuple" }],
+      stateMutability: "view",
+      type: "function"
+    },
+    {
+      inputs: [{ internalType: "uint256", name: "caseId", type: "uint256" }],
+      name: "getLockedAmount",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function"
+    },
+    {
+      anonymous: false,
+      inputs: [{ indexed: true, internalType: "uint256", name: "caseId", type: "uint256" }, { indexed: true, internalType: "address", name: "client", type: "address" }, { indexed: false, internalType: "uint256", name: "amount", type: "uint256" }],
+      name: "FundsLocked",
+      type: "event"
+    },
+    {
+      anonymous: false,
+      inputs: [{ indexed: true, internalType: "uint256", name: "caseId", type: "uint256" }, { indexed: true, internalType: "address", name: "winner", type: "address" }, { indexed: false, internalType: "uint256", name: "amount", type: "uint256" }],
+      name: "FundsReleased",
+      type: "event"
+    },
+    {
+      anonymous: false,
+      inputs: [{ indexed: true, internalType: "uint256", name: "caseId", type: "uint256" }, { indexed: true, internalType: "address", name: "client", type: "address" }, { indexed: false, internalType: "uint256", name: "amount", type: "uint256" }],
+      name: "FundsRefunded",
+      type: "event"
+    }
+  ]
+};
+
+// USDC token on Base Sepolia
+export const USDC_BASE_SEPOLIA = "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as `0x${string}`;
+export const USDC_DECIMALS = 6;
+
 // Base fee for filing cases — must match CourtCaseTest.sol BASE_FEE constant
 export const BASE_FEE = BigInt("100000000000000"); // 0.0001 ETH in wei (testnet)
 
 // Chain configuration
-export const ARBITRUM_SEPOLIA = {
-  id: 421614,
-  name: "Arbitrum Sepolia",
+export const BASE_SEPOLIA_CHAIN = {
+  id: 84532,
+  name: "Base Sepolia",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: {
-    default: { http: ["https://sepolia-rollup.arbitrum.io/rpc"] }
+    default: { http: ["https://sepolia.base.org"] }
   },
   blockExplorers: {
-    default: { name: "Arbiscan", url: "https://sepolia.arbiscan.io" }
+    default: { name: "Basescan", url: "https://sepolia.basescan.org" }
   }
 };

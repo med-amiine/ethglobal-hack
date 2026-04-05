@@ -7,13 +7,13 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import { arbitrumSepolia } from "wagmi/chains";
+import { baseSepolia } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const config = getDefaultConfig({
   appName: "Jurex Network",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "1aa6118437843f435ffaad40b097a47c",
-  chains: [arbitrumSepolia],
+  chains: [baseSepolia],
   ssr: false,
 });
 
@@ -25,7 +25,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           theme={darkTheme({
-            accentColor: "#00ff41",
+            accentColor: "#C9A84C",
             accentColorForeground: "black",
             borderRadius: "none",
             fontStack: "system",

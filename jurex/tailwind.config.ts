@@ -10,15 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         synth: {
-          bg: "#0a0a0a",
-          "bg-secondary": "#111111",
-          border: "#222222",
-          "border-hover": "#333333",
+          bg: "#0a0e1a",
+          "bg-secondary": "#0f1219",
+          border: "#1A2130",
+          "border-hover": "#2A3545",
           text: "#ffffff",
-          muted: "#888888",
-          faded: "#555555",
-          accent: "#00ff41",
+          muted: "#8899AA",
+          faded: "#4A5568",
+          accent: "#C9A84C",
+          "accent-dim": "#a8823a",
         },
+        gold: "#C9A84C",
       },
       fontFamily: {
         mono: ["'SF Mono'", "Monaco", "Inconsolata", "'Roboto Mono'", "'Courier New'", "monospace"],

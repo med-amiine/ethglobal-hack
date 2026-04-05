@@ -1,0 +1,14 @@
+{
+  "network": "baseSepolia",
+  "chainId": "84532",
+  "timestamp": "2026-04-05T00:37:32.473Z",
+  "deployer": "0x9D1B7F418835e7c75cD7A4CbD3ab6754E50bACfc",
+  "version": "v2",
+  "contracts": {
+    "JRXToken": "0x847791adb10F75113ac103dFE11Cf764972F804b",
+    "CourtRegistry": "0x9942F8Eed1334beD4e8283DCE76a2e2c23B46d4D",
+    "CourtCaseFactoryTest": "0xD07fbDE7E5eC68e5aa863DE4D077Fc0350dE18c6",
+    "AgenticCommerce": "0xeF46B8ea7c59f4fb8AC1889089Ed4C581C6db2cc",
+    "AgentCourtHook": "0x6e5A68Da84fFaAFef2b6f2881Fbbb256dfc5efe5"
+  }
+}
