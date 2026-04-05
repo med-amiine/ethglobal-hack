@@ -1,7 +1,7 @@
 # JUREX v2 — ETHGlobal Cannes 2026 Submission
 
-**Live Demo:** [jurex.vercel.app](https://jurex.vercel.app)  
-**GitHub:** [github.com/med-amiine/ethglobal-hack](https://github.com/med-amiine/ethglobal-hack)  
+**Live Demo:** https://jurex.vercel.app  
+**GitHub:** https://github.com/med-amiine/ethglobal-hack  
 **Network:** Base Sepolia (84532)
 
 ---
